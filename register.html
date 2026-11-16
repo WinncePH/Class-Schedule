@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Class Schedule Maker</title>
+    <link rel="icon" type="image/png" href="images/logo.jpg">
+    <link rel="apple-touch-icon" href="images/logo.jpg">
+    <link rel="stylesheet" href="auth.css">
+</head>
+
+<body>
+
+    <div class="auth-card">
+        <div class="auth-logo">📅</div>
+        <h2>Create your account</h2>
+        <p class="auth-sub">Enter your name and course/year level.</p>
+
+        <div class="field">
+            <label for="regName">Full Name</label>
+            <input type="text" id="regName" placeholder="Enter your full name" autofocus>
+        </div>
+
+        <div class="field">
+            <label for="regCourse">Course &amp; Year Level</label>
+            <input type="text" id="regCourse" placeholder="e.g. BSIT - 3rd Year"
+                onkeydown="if(event.key==='Enter') register()">
+        </div>
+
+        <button type="button" class="create-btn" id="registerBtn" onclick="register()">Create Account</button>
+
+        <p class="auth-switch">Already have an account? <a href="login.html">Login</a></p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        function showAuthError(message) {
+            if (message) notify(message, "warning");
+        }
+
+        async function register() {
+            const name = document.getElementById("regName").value.trim().replace(/\s+/g, " ");
+            const course = document.getElementById("regCourse").value.trim();
+
+            if (!name || !course) {
+                showAuthError("Please enter your name and course/year level.");
+                return;
+            }
+
+            const btn = document.getElementById("registerBtn");
+            btn.disabled = true;
+
+            try {
+                if (await findUser(name)) {
+                    notify("This name is already registered. Please login instead.", "error", "Already registered");
+                    return;
+                }
+
+                const user = await createUser(name, course);
+                setSession(user);
+
+                await Swal.fire({
+                    icon: "success",
+                    title: "Account created!",
+                    text: "Welcome, " + user.name + ".",
+                    timer: 1600,
+                    showConfirmButton: false,
+                    timerProgressBar: true
+                });
+
+                window.location.href = "index.html";
+            } catch (error) {
+                console.error(error);
+                notify(error.status === 409
+                    ? "This name is already registered. Please login instead."
+                    : "Could not register. Please check your connection and Supabase settings.", "error");
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        // already logged in? go straight to the schedule maker
+        document.addEventListener("DOMContentLoaded", async function () {
+            const key = getSessionKey();
+            if (!key) return;
+
+            try {
+                if (await findUser(key)) window.location.href = "index.html";
+            } catch (e) { console.error(e); }
+        });
+    </script>
+
+</body>
+
+</html>

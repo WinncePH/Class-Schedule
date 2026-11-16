@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Class Schedule Maker</title>
+    <link rel="icon" type="image/png" href="images/logo.jpg">
+    <link rel="apple-touch-icon" href="images/logo.jpg">
+    <link rel="stylesheet" href="auth.css">
+</head>
+
+<body>
+
+    <div class="auth-card">
+        <div class="auth-logo">📅</div>
+        <h2>Welcome back</h2>
+        <p class="auth-sub">Login with your name to open your class schedule.</p>
+
+        <div class="field">
+            <label for="loginName">Full Name</label>
+            <input type="text" id="loginName" placeholder="Enter your full name" autofocus
+                onkeydown="if(event.key==='Enter') login()">
+        </div>
+
+        <button type="button" class="create-btn" id="loginBtn" onclick="login()">Login</button>
+
+        <p class="auth-switch">No account yet? <a href="register.html">Register</a></p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        function showAuthError(message) {
+            if (message) notify(message, "warning");
+        }
+
+        async function login() {
+            const name = document.getElementById("loginName").value;
+
+            if (!name.trim()) {
+                showAuthError("Please enter your name.");
+                return;
+            }
+
+            const btn = document.getElementById("loginBtn");
+            btn.disabled = true;
+
+            try {
+                const user = await findUser(name);
+
+                if (!user) {
+                    notify("No account found with that name. Please register first.", "error", "Account not found");
+                    return;
+                }
+
+                setSession(user);
+
+                await Swal.fire({
+                    icon: "success",
+                    title: "Welcome back!",
+                    text: user.name,
+                    timer: 1400,
+                    showConfirmButton: false,
+                    timerProgressBar: true
+                });
+
+                window.location.href = "index.html";
+            } catch (error) {
+                console.error(error);
+                notify("Could not login. Please check your connection and Supabase settings.", "error");
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        // already logged in? go straight to the schedule maker
+        document.addEventListener("DOMContentLoaded", async function () {
+            const key = getSessionKey();
+            if (!key) return;
+
+            try {
+                if (await findUser(key)) window.location.href = "index.html";
+            } catch (e) { console.error(e); }
+        });
+    </script>
+
+</body>
+
+</html>
