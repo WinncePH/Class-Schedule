@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- Website Tab Logo / Favicon -->
+<link rel="icon" type="image/png" href="images/logo.jpg">
+
+<!-- Browser and Mobile Icon -->
+<link rel="apple-touch-icon" href="images/logo.jpg">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Class Schedule Maker</title>
-
-    <!-- Website Tab Logo / Favicon -->
-    <link rel="icon" type="image/png" href="images/logo.jpg">
-
-    <!-- Browser and Mobile Icon -->
-    <link rel="apple-touch-icon" href="images/logo.jpg">
-
-    <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -294,8 +291,13 @@
         .schedule-top h2 {
             margin: 0;
             color: var(--dark);
-            font-size: 16px;
-            letter-spacing: .5px;
+            font-size: 21px;
+        }
+
+        .schedule-top p {
+            color: #929bb0;
+            font-size: 12px;
+            margin-top: 5px;
         }
 
         /* STUDENT INFORMATION */
@@ -361,8 +363,7 @@
             border: 1px solid #777;
             text-align: center;
             padding: 3px;
-            font-size: 15px;
-            font-weight: 800;
+            font-size: 12px;
         }
 
         th {
@@ -379,9 +380,8 @@
         }
 
         .time-cell {
-            height: 28px;
-            font-size: 13px;
-            font-weight: 800;
+            height: 26px;
+            font-size: 11px;
             white-space: nowrap;
         }
 
@@ -401,24 +401,21 @@
             font-family: Georgia, serif;
             line-height: 1.45;
             color: #252525;
-            font-size: 15px;
-            font-weight: 800;
+            font-size: 12px;
         }
 
         .subject-card strong {
             display: block;
-            font-size: 16px;
-            font-weight: 800;
+            font-size: 13px;
             margin-bottom: 3px;
         }
 
         .subject-card small {
             display: block;
             font-family: Arial, sans-serif;
-            font-size: 12px;
-            font-weight: 800;
-            margin-top: 5px;
-            color: #222;
+            font-size: 11px;
+            margin-top: 3px;
+            color: #3a3a3a;
         }
 
         /* SATURDAY CHURCH */
@@ -505,6 +502,133 @@
             }
         }
 
+
+        /* AUTH (LOGIN / REGISTER) */
+
+        .auth-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: linear-gradient(120deg, #183caa, #6545d9, #8849e9);
+        }
+
+        .auth-overlay.show {
+            display: flex;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .25);
+        }
+
+        .auth-card .auth-logo {
+            font-size: 34px;
+            text-align: center;
+        }
+
+        .auth-card h2 {
+            text-align: center;
+            color: var(--dark);
+            font-size: 20px;
+            margin: 6px 0 4px;
+        }
+
+        .auth-card .auth-sub {
+            text-align: center;
+            color: #8992a9;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 6px;
+            background: #f0f2f8;
+            padding: 5px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .auth-tabs button {
+            flex: 1;
+            background: transparent;
+            color: #53617e;
+            padding: 10px;
+        }
+
+        .auth-tabs button:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .auth-tabs button.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+        }
+
+        .auth-card .field {
+            margin-bottom: 15px;
+        }
+
+        .auth-card .create-btn {
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .auth-error {
+            display: none;
+            color: #c24141;
+            font-size: 12px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .user-bar {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            margin-top: 18px;
+            font-size: 13px;
+        }
+
+        .user-bar.show {
+            display: flex;
+        }
+
+        .user-bar button {
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, .2);
+            color: white;
+        }
+
+        /* LOCKED STUDENT FIELDS */
+
+        .field input.locked {
+            background: #eef0f6;
+            color: #56627f;
+            border-color: #dde1ec;
+            cursor: not-allowed;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        @media print {
+
+            .auth-overlay,
+            .user-bar {
+                display: none !important;
+            }
+        }
+
         /* RESPONSIVE */
 
         @media(max-width: 768px) {
@@ -572,32 +696,25 @@
 
             .schedule-top {
                 justify-content: center;
-                margin-bottom: 6px;
+                margin-bottom: 10px;
             }
 
             .schedule-top h2 {
                 color: black;
-                font-size: 14px;
+                font-size: 20px;
             }
 
-            /* Student info: no border, compact, always 2 columns */
+            .schedule-top p {
+                color: black;
+            }
+
             .student-info {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
                 background: #f0f0f0 !important;
-                border: none !important;
-                border-radius: 0;
-                padding: 6px 10px;
-                margin-bottom: 6px;
+                border: 1px solid black;
+                padding: 10px;
+                margin-bottom: 12px;
                 print-color-adjust: exact;
                 -webkit-print-color-adjust: exact;
-            }
-
-            .info-icon {
-                width: 30px;
-                height: 30px;
-                font-size: 15px;
             }
 
             .table-wrapper {
@@ -613,58 +730,55 @@
             th,
             td {
                 border: 1px solid black;
-                font-size: 12px;
-                padding: 1px 2px;
-                font-weight: 800;
                 print-color-adjust: exact;
                 -webkit-print-color-adjust: exact;
             }
 
             th {
                 background: #ddd !important;
-                height: 22px;
-            }
-
-            .subject-cell {
-                padding: 2px;
             }
 
             .subject-card {
-                font-size: 10.5px;
-                font-weight: 800;
-                line-height: 1.15;
+                font-size: 11px;
+                line-height: 1.2;
+                color: #000;
             }
 
             .subject-card strong {
                 font-size: 12px;
-                font-weight: 900;
                 margin-bottom: 1px;
             }
 
             .subject-card small {
-                font-size: 9.5px;
-                font-weight: 800;
-                color: #111;
+                font-size: 10.5px;
+                line-height: 1.2;
                 margin-top: 1px;
+                color: #000;
             }
 
             .time-cell {
-                height: 20px;
-                font-size: 11px;
-                font-weight: 900;
+                height: 26px;
+                font-size: 10px;
             }
 
             .empty-cell {
-                height: 20px;
+                height: 26px;
             }
 
-            .church-cell {
-                font-size: 14px;
+            .subject-cell {
+                padding: 2px;
+                overflow: visible;
             }
 
-            .church-cell small {
-                font-size: 10px;
-                font-weight: 900;
+            .student-info {
+                padding: 6px 10px !important;
+                margin-bottom: 6px !important;
+            }
+
+            .info-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 15px;
             }
 
             .subject-cell {
@@ -683,6 +797,47 @@
 
 <body>
 
+    <!-- LOGIN / REGISTER -->
+    <div class="auth-overlay" id="authOverlay">
+        <div class="auth-card">
+            <div class="auth-logo">📅</div>
+            <h2>Class Schedule Maker</h2>
+            <p class="auth-sub">Log in or create an account to continue.</p>
+
+            <div class="auth-tabs">
+                <button type="button" id="tabLogin" class="active" onclick="showAuthTab('login')">Login</button>
+                <button type="button" id="tabRegister" onclick="showAuthTab('register')">Register</button>
+            </div>
+
+            <p class="auth-error" id="authError"></p>
+
+            <!-- LOGIN -->
+            <div id="loginPane">
+                <div class="field">
+                    <label for="loginName">Full Name</label>
+                    <input type="text" id="loginName" placeholder="Enter your full name"
+                        onkeydown="if(event.key==='Enter') login()">
+                </div>
+                <button type="button" class="create-btn" onclick="login()">Login</button>
+            </div>
+
+            <!-- REGISTER -->
+            <div id="registerPane" style="display:none;">
+                <div class="field">
+                    <label for="regName">Full Name</label>
+                    <input type="text" id="regName" placeholder="Enter your full name">
+                </div>
+                <div class="field">
+                    <label for="regCourse">Course & Year Level</label>
+                    <input type="text" id="regCourse" placeholder="e.g. BSIT - 3rd Year"
+                        onkeydown="if(event.key==='Enter') register()">
+                </div>
+                <button type="button" class="create-btn" onclick="register()">Create Account</button>
+            </div>
+        </div>
+    </div>
+
+
     <header>
         <div class="header-content">
 
@@ -693,6 +848,12 @@
                     <h1>Class Schedule Maker</h1>
                     <p>Organize your academic life with ease.</p>
                 </div>
+            </div>
+
+            <div class="user-bar" id="userBar">
+                <span>👤 Logged in as <strong id="userBarName"></strong></span>
+                <small id="syncStatus" style="opacity:.85;"></small>
+                <button type="button" onclick="logout()">Log out</button>
             </div>
 
         </div>
@@ -725,6 +886,53 @@
             </div>
 
             <hr style="border:0;border-top:1px solid #edf0f5;margin:25px 0;">
+
+
+            <!-- UPLOAD EXISTING SCHEDULE -->
+            <section class="panel" id="uploadSection">
+                <div class="section-heading">
+                    <h2>✦ Upload Existing Schedule</h2>
+                    <span>AI / OCR SCAN</span>
+                </div>
+
+                <p style="color:#8992a9;font-size:13px;margin-bottom:18px;">
+                    Upload a school portal screenshot, photo of a printed schedule,
+                    or PDF file. Review the extracted subjects before importing.
+                </p>
+
+                <div class="field">
+                    <label for="scheduleFile">Choose Schedule File</label>
+                    <input type="file" id="scheduleFile" accept="image/*,.pdf" style="width:100%;padding:13px;border:1px dashed #315bea;
+            border-radius:10px;background:#f8faff;">
+                </div>
+
+                <div class="actions">
+                    <button type="button" class="create-btn" onclick="scanSchedule()">
+                        📄 Scan Schedule
+                    </button>
+                </div>
+
+                <p id="scanStatus" style="font-size:13px;margin-top:15px;color:#315bea;"></p>
+
+                <div id="reviewSection" style="display:none;margin-top:25px;">
+                    <h3 style="margin-bottom:12px;">Review Extracted Subjects</h3>
+
+                    <p style="font-size:12px;color:#8992a9;margin-bottom:15px;">
+                        Check and correct the extracted information before importing.
+                    </p>
+
+                    <div id="extractedSubjects"></div>
+
+                    <div class="actions">
+                        <button type="button" class="create-btn" onclick="importExtractedSubjects()">
+                            ✓ Import to My Schedule
+                        </button>
+                        <button type="button" class="clear-btn" onclick="cancelScan()">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </section>
 
             <!-- SUBJECT FORM -->
 
@@ -824,7 +1032,7 @@
                         + Create Schedule
                     </button>
 
-                    <button type="reset" class="clear-btn" id="clearBtn">
+                    <button type="reset" class="clear-btn">
                         Clear Form
                     </button>
 
@@ -843,6 +1051,7 @@
 
                 <div>
                     <h2>MY CLASS SCHEDULE</h2>
+                    <p>Weekly Academic Timetable</p>
                 </div>
 
                 <div class="actions no-print" style="margin:0;">
@@ -952,8 +1161,655 @@
 
     </div>
 
+    <script>
+        // ===================================================================
+        //  SUPABASE SETTINGS  -  paste your own values here
+        //  (Supabase Dashboard > Project Settings > API)
+        // ===================================================================
+        const SUPABASE_URL = "https://wsciimnfzzlesgtyymep.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndzY2lpbW5menpsZXNndHl5bWVwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ4MzYzODcsImV4cCI6MjExMDQxMjM4N30.zcY0tDkwQeFi6FqWljuzUBlRVcZEApQtF7uynkfGQOU";
+
+        const USE_SUPABASE = !SUPABASE_URL.includes("YOUR-PROJECT-REF") &&
+            !SUPABASE_ANON_KEY.includes("YOUR-ANON");
+
+        const USERS_KEY = "csm_users";        // local fallback only
+        const SESSION_KEY = "csm_session";
+        let currentUser = null;               // { id?, name, course }
+
+        // ---------- Supabase REST helper ----------
+        async function sb(path, options = {}) {
+            const res = await fetch(SUPABASE_URL + "/rest/v1/" + path, {
+                method: options.method || "GET",
+                headers: {
+                    apikey: SUPABASE_ANON_KEY,
+                    Authorization: "Bearer " + SUPABASE_ANON_KEY,
+                    "Content-Type": "application/json",
+                    Prefer: options.prefer || "return=representation"
+                },
+                body: options.body ? JSON.stringify(options.body) : undefined
+            });
+
+            if (!res.ok) {
+                const text = await res.text();
+                const error = new Error(text || res.statusText);
+                error.status = res.status;
+                throw error;
+            }
+
+            return res.status === 204 ? null : res.json();
+        }
+
+        function normalizeName(name) {
+            return name.trim().replace(/\s+/g, " ").toLowerCase();
+        }
+
+        // ---------- Local fallback storage ----------
+        function getLocalUsers() {
+            try { return JSON.parse(localStorage.getItem(USERS_KEY)) || []; }
+            catch (e) { return []; }
+        }
+
+        function saveLocalUsers(users) {
+            try { localStorage.setItem(USERS_KEY, JSON.stringify(users)); }
+            catch (e) { console.error(e); }
+        }
+
+        // ---------- Find / create account ----------
+        async function findUser(name) {
+            const key = normalizeName(name);
+
+            if (USE_SUPABASE) {
+                const rows = await sb("students?name_key=eq." + encodeURIComponent(key) + "&select=*");
+                return rows[0] || null;
+            }
+
+            return getLocalUsers().find(u => normalizeName(u.name) === key) || null;
+        }
+
+        async function createUser(name, course) {
+            if (USE_SUPABASE) {
+                const rows = await sb("students", { method: "POST", body: { name, course } });
+                return rows[0];
+            }
+
+            const users = getLocalUsers();
+            users.push({ name, course });
+            saveLocalUsers(users);
+            return { name, course };
+        }
+
+        // ---------- Subjects: load / save ----------
+        function localSubjectsKey(user) {
+            return "csm_subjects_" + normalizeName(user.name);
+        }
+
+        async function loadSubjects(user) {
+            if (USE_SUPABASE) {
+                const rows = await sb("subjects?student_id=eq." + user.id + "&select=*&order=position.asc");
+                return rows.map(r => ({
+                    id: Date.now() + Math.random(),
+                    code: r.code,
+                    name: r.name,
+                    professor: r.professor || "",
+                    room: r.room || "",
+                    start: r.start_time,
+                    end: r.end_time,
+                    days: r.days || [],
+                    color: r.color
+                }));
+            }
+
+            try {
+                return JSON.parse(localStorage.getItem(localSubjectsKey(user))) || [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        let syncChain = Promise.resolve();
+
+        function setSyncStatus(text) {
+            const el = document.getElementById("syncStatus");
+            if (el) el.textContent = text;
+        }
+
+        // called after every add / import / delete
+        function persistSubjects() {
+            if (!currentUser) return;
+
+            const snapshot = subjects.map(s => ({ ...s, days: [...s.days] }));
+            const user = currentUser;
+
+            if (!USE_SUPABASE) {
+                try {
+                    localStorage.setItem(localSubjectsKey(user), JSON.stringify(snapshot));
+                } catch (e) { console.error(e); }
+                return;
+            }
+
+            setSyncStatus("☁ Saving...");
+
+            // run saves one after another so they never overlap
+            syncChain = syncChain.then(async () => {
+                await sb("subjects?student_id=eq." + user.id, {
+                    method: "DELETE",
+                    prefer: "return=minimal"
+                });
+
+                if (snapshot.length) {
+                    await sb("subjects", {
+                        method: "POST",
+                        prefer: "return=minimal",
+                        body: snapshot.map((s, index) => ({
+                            student_id: user.id,
+                            position: index,
+                            code: s.code,
+                            name: s.name,
+                            professor: s.professor,
+                            room: s.room,
+                            start_time: s.start,
+                            end_time: s.end,
+                            days: s.days,
+                            color: s.color
+                        }))
+                    });
+                }
+
+                setSyncStatus("☁ Saved");
+            }).catch(error => {
+                console.error(error);
+                setSyncStatus("⚠ Not saved (check connection)");
+            });
+        }
+
+        // ---------- UI ----------
+        function showAuthTab(tab) {
+            const isLogin = tab === "login";
+            document.getElementById("loginPane").style.display = isLogin ? "block" : "none";
+            document.getElementById("registerPane").style.display = isLogin ? "none" : "block";
+            document.getElementById("tabLogin").classList.toggle("active", isLogin);
+            document.getElementById("tabRegister").classList.toggle("active", !isLogin);
+            showAuthError("");
+        }
+
+        function showAuthError(message) {
+            const el = document.getElementById("authError");
+            el.textContent = message;
+            el.style.display = message ? "block" : "none";
+        }
+
+        function setAuthBusy(busy) {
+            document.querySelectorAll(".auth-card .create-btn").forEach(b => b.disabled = busy);
+        }
+
+        async function register() {
+            const name = document.getElementById("regName").value.trim().replace(/\s+/g, " ");
+            const course = document.getElementById("regCourse").value.trim();
+
+            if (!name || !course) {
+                showAuthError("Please enter your name and course/year level.");
+                return;
+            }
+
+            setAuthBusy(true);
+
+            try {
+                if (await findUser(name)) {
+                    showAuthError("This name is already registered. Please login instead.");
+                    return;
+                }
+
+                const user = await createUser(name, course);
+                await startSession(user);
+            } catch (error) {
+                console.error(error);
+                showAuthError(error.status === 409
+                    ? "This name is already registered. Please login instead."
+                    : "Could not register. Please check your connection and Supabase settings.");
+            } finally {
+                setAuthBusy(false);
+            }
+        }
+
+        async function login() {
+            const name = document.getElementById("loginName").value;
+
+            if (!name.trim()) {
+                showAuthError("Please enter your name.");
+                return;
+            }
+
+            setAuthBusy(true);
+
+            try {
+                const user = await findUser(name);
+
+                if (!user) {
+                    showAuthError("No account found with that name. Please register first.");
+                    return;
+                }
+
+                await startSession(user);
+            } catch (error) {
+                console.error(error);
+                showAuthError("Could not login. Please check your connection and Supabase settings.");
+            } finally {
+                setAuthBusy(false);
+            }
+        }
+
+        async function startSession(user) {
+            try { localStorage.setItem(SESSION_KEY, normalizeName(user.name)); }
+            catch (e) { console.error(e); }
+
+            await applyUser(user);
+        }
+
+        async function applyUser(user) {
+            currentUser = user;
+
+            const nameInput = document.getElementById("studentName");
+            const courseInput = document.getElementById("studentCourse");
+
+            nameInput.value = user.name;
+            courseInput.value = user.course;
+
+            // visible but not clickable / editable
+            [nameInput, courseInput].forEach(input => {
+                input.readOnly = true;
+                input.tabIndex = -1;
+                input.classList.add("locked");
+            });
+
+            document.getElementById("userBarName").textContent = user.name;
+            document.getElementById("userBar").classList.add("show");
+            document.getElementById("authOverlay").classList.remove("show");
+
+            document.getElementById("loginName").value = "";
+            document.getElementById("regName").value = "";
+            document.getElementById("regCourse").value = "";
+            showAuthError("");
+
+            // RESTORE SAVED SCHEDULE
+            try {
+                setSyncStatus(USE_SUPABASE ? "☁ Loading..." : "💾 Saved on this device");
+                subjects = await loadSubjects(user);
+
+                if (subjects.length) {
+                    document.getElementById("displayName").textContent = user.name;
+                    document.getElementById("displayCourse").textContent = user.course;
+                    document.getElementById("scheduleSection").style.display = "block";
+                    renderSchedule();
+                    renderSubjectList();
+                }
+
+                setSyncStatus(USE_SUPABASE ? "☁ Synced" : "💾 Saved on this device");
+            } catch (error) {
+                console.error(error);
+                setSyncStatus("⚠ Could not load saved schedule");
+            }
+        }
+
+        function logout() {
+            try { localStorage.removeItem(SESSION_KEY); }
+            catch (e) { console.error(e); }
+            location.reload();
+        }
+
+        // wait until the whole page (and the schedule script) is ready
+        document.addEventListener("DOMContentLoaded", async function () {
+            let sessionKey = null;
+            try { sessionKey = localStorage.getItem(SESSION_KEY); } catch (e) { }
+
+            let user = null;
+
+            if (sessionKey) {
+                try { user = await findUser(sessionKey); }
+                catch (e) { console.error(e); }
+            }
+
+            if (user) {
+                await applyUser(user);
+            } else {
+                document.getElementById("authOverlay").classList.add("show");
+            }
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/5.1.1/tesseract.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
     <script>
+
+
+        let extractedSubjects = [];
+
+        async function scanSchedule() {
+            const file = document.getElementById("scheduleFile").files[0];
+            const status = document.getElementById("scanStatus");
+
+            if (!file) {
+                alert("Please select an image or PDF first.");
+                return;
+            }
+
+            extractedSubjects = [];
+            status.textContent = "Preparing file...";
+
+            try {
+                let images = [];
+
+                if (file.type === "application/pdf") {
+                    pdfjsLib.GlobalWorkerOptions.workerSrc =
+                        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+                    const buffer = await file.arrayBuffer();
+                    const pdf = await pdfjsLib.getDocument({
+                        data: new Uint8Array(buffer)
+                    }).promise;
+
+                    for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+                        status.textContent = `Preparing PDF page ${pageNumber} of ${pdf.numPages}...`;
+
+                        const page = await pdf.getPage(pageNumber);
+                        const viewport = page.getViewport({ scale: 2 });
+                        const canvas = document.createElement("canvas");
+                        const context = canvas.getContext("2d");
+
+                        canvas.width = viewport.width;
+                        canvas.height = viewport.height;
+
+                        await page.render({
+                            canvasContext: context,
+                            viewport
+                        }).promise;
+
+                        images.push(canvas);
+                    }
+                } else if (file.type.startsWith("image/")) {
+                    images.push(file);
+                } else {
+                    throw new Error("Unsupported file format.");
+                }
+
+                let fullText = "";
+
+                for (let i = 0; i < images.length; i++) {
+                    status.textContent =
+                        `Reading schedule ${i + 1} of ${images.length}...`;
+
+                    const result = await Tesseract.recognize(
+                        images[i],
+                        "eng",
+                        {
+                            logger: message => {
+                                if (message.status === "recognizing text") {
+                                    status.textContent =
+                                        `Reading text: ${Math.round(message.progress * 100)}%`;
+                                }
+                            }
+                        }
+                    );
+
+                    fullText += "\n" + result.data.text;
+                }
+
+                document.getElementById("reviewSection").style.display = "block";
+
+                status.textContent = "Scan completed. Please review the extracted information.";
+
+                parseScheduleText(fullText);
+
+            } catch (error) {
+                console.error(error);
+                status.textContent = "Unable to scan this file. Please try another image or PDF.";
+                alert("Scanning failed. Please check your file and try again.");
+            }
+        }
+
+        // BASIC OCR TEXT REVIEW
+        function parseScheduleText(text) {
+            const container = document.getElementById("extractedSubjects");
+            container.innerHTML = "";
+
+            const lines = text.split(/\r?\n/)
+                .map(line => line.trim())
+                .filter(line => line.length > 2);
+
+            const detected = [];
+
+            console.log("OCR TEXT:\n" + text);
+
+            // Converts day codes like MW, TTh, MWF, T, Th into ["Mon","Wed"], etc.
+            function parseDayCode(code) {
+                const full = {
+                    sunday: "Sun", monday: "Mon", tuesday: "Tue",
+                    wednesday: "Wed", thursday: "Thu", friday: "Fri",
+                    sun: "Sun", mon: "Mon", tue: "Tue", wed: "Wed",
+                    thu: "Thu", fri: "Fri"
+                };
+                const lower = code.toLowerCase();
+                if (full[lower]) return [full[lower]];
+
+                const result = [];
+                for (let i = 0; i < code.length; i++) {
+                    const c = code[i];
+                    if (c === "T" && code[i + 1] === "h") { result.push("Thu"); i++; }
+                    else if (c === "T") result.push("Tue");
+                    else if (c === "M") result.push("Mon");
+                    else if (c === "W") result.push("Wed");
+                    else if (c === "F") result.push("Fri");
+                    else return [];
+                }
+                return [...new Set(result)];
+            }
+
+            // DAYS + TIME + ROOM, e.g. "MW 09:00-10:30 COT-2" or "TTh 13:30-15:00 SAPLab"
+            const rowPattern = /\b(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Sun|Mon|Tue|Wed|Thu|Fri|(?:Th|T|M|W|F)+)\s+(\d{1,2}[:.]\d{2}\s*(?:AM|PM)?)\s*[-–—~]\s*(\d{1,2}[:.]\d{2}\s*(?:AM|PM)?)\s*(.*)$/i;
+
+            lines.forEach(line => {
+                const match = line.match(rowPattern);
+                if (!match) return;
+
+                const days = parseDayCode(match[1]);
+                if (!days.length) return;
+
+                const before = line.slice(0, match.index).trim();
+                const codeMatch = before.match(/([A-Z]{2,6})\s*[-]?\s*(\d{2,4}[A-Z]?)/);
+
+                const code = codeMatch ? codeMatch[1] + " " + codeMatch[2] : (before.split(/\s+/)[0] || "");
+                const name = codeMatch
+                    ? before.slice(codeMatch.index + codeMatch[0].length).trim()
+                    : before;
+
+                // After the time: ROOM  Professor, Name   units  units
+                let after = match[4].replace(/(\s+\d+(\.\d+)?){1,3}\s*$/, "").trim();
+                const parts = after.split(/\s+/);
+                const room = parts.shift() || "";
+                const professor = parts.join(" ");
+
+                detected.push({
+                    code,
+                    name,
+                    professor,
+                    room,
+                    start: normalizeOCRTime(match[2].replace(".", ":")),
+                    end: normalizeOCRTime(match[3].replace(".", ":")),
+                    days
+                });
+            });
+
+            extractedSubjects = detected;
+
+            if (detected.length === 0) {
+                container.innerHTML = `
+            <p style="color:#c24141;font-size:13px;">
+                No complete subject rows were recognized automatically.
+                You can still use the manual subject form below.
+            </p>`;
+                return;
+            }
+
+            detected.forEach((subject, index) => {
+                const card = document.createElement("div");
+                card.style.cssText =
+                    "padding:15px;border:1px solid #e1e5ef;border-radius:12px;margin-bottom:12px;";
+
+                card.innerHTML = `
+            <div style="font-weight:700;margin-bottom:12px;">
+                Subject ${index + 1}
+            </div>
+
+            <div class="form-grid">
+                ${reviewInput(index, "code", "Subject Code", subject.code)}
+                ${reviewInput(index, "name", "Subject Name", subject.name)}
+                ${reviewInput(index, "professor", "Professor", subject.professor)}
+                ${reviewInput(index, "room", "Room", subject.room)}
+                ${reviewInput(index, "start", "Start Time", subject.start, "time")}
+                ${reviewInput(index, "end", "End Time", subject.end, "time")}
+            </div>
+
+            <p style="font-size:12px;margin-top:12px;">
+                Days: ${subject.days.join(", ")}
+            </p>
+        `;
+
+                container.appendChild(card);
+            });
+        }
+
+        function reviewInput(index, key, label, value, type = "text") {
+            return `
+        <div class="field">
+            <label>${label}</label>
+            <input
+                type="${type}"
+                value="${escapeHTML(value)}"
+                onchange="updateExtracted(${index}, '${key}', this.value)"
+            >
+        </div>
+    `;
+        }
+
+        function escapeHTML(value) {
+            return String(value ?? "").replace(/[&<>"']/g, char => ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#039;"
+            })[char]);
+        }
+
+        function updateExtracted(index, key, value) {
+            extractedSubjects[index][key] = value;
+        }
+
+        function normalizeOCRTime(value) {
+            const cleaned = value.trim().toUpperCase().replace(/\s+/g, " ");
+            const match = cleaned.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)?$/);
+
+            if (!match) return "";
+
+            let hour = Number(match[1]);
+            const minute = Number(match[2]);
+            const period = match[3];
+
+            if (period === "PM" && hour !== 12) hour += 12;
+            if (period === "AM" && hour === 12) hour = 0;
+
+            if (hour > 23 || minute > 59) return "";
+
+            return `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
+        }
+
+        function importExtractedSubjects() {
+            if (!extractedSubjects.length) {
+                alert("No subjects available to import.");
+                return;
+            }
+
+            const studentName = document.getElementById("studentName").value.trim();
+            const studentCourse = document.getElementById("studentCourse").value.trim();
+
+            if (!studentName || !studentCourse) {
+                alert("Please enter your student name and course/year level first.");
+                return;
+            }
+
+            const validSubjects = [];
+
+            for (const item of extractedSubjects) {
+                if (!item.code || !item.name || !item.start || !item.end ||
+                    !item.days.length || item.days.includes("Sat")) {
+                    alert("Please correct missing information and make sure no subject uses Saturday.");
+                    return;
+                }
+
+                const start = timeToMinutes(item.start);
+                const end = timeToMinutes(item.end);
+
+                if (start < 420 || end > 1080 || start >= end ||
+                    start % 30 !== 0 || end % 30 !== 0) {
+                    alert("Please correct the subject times. Classes must be between 7 AM and 6 PM using 30-minute intervals.");
+                    return;
+                }
+
+                for (const day of item.days) {
+                    const conflict = subjects.some(existing =>
+                        existing.days.includes(day) &&
+                        start < timeToMinutes(existing.end) &&
+                        end > timeToMinutes(existing.start)
+                    ) || validSubjects.some(existing =>
+                        existing.days.includes(day) &&
+                        start < timeToMinutes(existing.end) &&
+                        end > timeToMinutes(existing.start)
+                    );
+
+                    if (conflict) {
+                        alert(`Schedule conflict detected on ${day}. Please correct the extracted schedule.`);
+                        return;
+                    }
+                }
+
+                validSubjects.push({
+                    id: Date.now() + Math.random(),
+                    code: item.code,
+                    name: item.name,
+                    professor: item.professor || "Not specified",
+                    room: item.room || "",
+                    start: item.start,
+                    end: item.end,
+                    days: item.days,
+                    color: colors[(subjects.length + validSubjects.length) % colors.length]
+                });
+            }
+
+            subjects.push(...validSubjects);
+            persistSubjects();
+
+            document.getElementById("displayName").textContent = studentName;
+            document.getElementById("displayCourse").textContent = studentCourse;
+            document.getElementById("scheduleSection").style.display = "block";
+
+            renderSchedule();
+            renderSubjectList();
+
+            document.getElementById("reviewSection").style.display = "none";
+            document.getElementById("scanStatus").textContent =
+                `${validSubjects.length} subject(s) imported successfully.`;
+
+            document.getElementById("scheduleSection").scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        }
+
+        function cancelScan() {
+            extractedSubjects = [];
+            document.getElementById("reviewSection").style.display = "none";
+            document.getElementById("scanStatus").textContent = "";
+            document.getElementById("scheduleFile").value = "";
+        }
 
         // DAYS
 
@@ -974,20 +1830,6 @@
         ];
 
         let subjects = [];
-
-
-        // SWEET ALERT HELPERS
-
-        function showWarning(message) {
-
-            Swal.fire({
-                icon: "warning",
-                title: "Oops!",
-                text: message,
-                confirmButtonColor: "#315bea"
-            });
-
-        }
 
 
         // TIME CONVERTER
@@ -1034,7 +1876,7 @@
 
                 if (!studentName || !studentCourse) {
 
-                    showWarning("Please enter your name and course/year level first.");
+                    alert("Please enter your name and course/year level first.");
 
                     return;
 
@@ -1071,7 +1913,7 @@
 
                 if (days.length === 0) {
 
-                    showWarning("Please select at least one class day.");
+                    alert("Please select at least one class day.");
 
                     return;
 
@@ -1087,7 +1929,7 @@
 
                 if (startMinutes >= endMinutes) {
 
-                    showWarning("End time must be later than start time.");
+                    alert("End time must be later than start time.");
 
                     return;
 
@@ -1099,7 +1941,7 @@
                     endMinutes % 30 !== 0
                 ) {
 
-                    showWarning("Please use 30-minute intervals.");
+                    alert("Please use 30-minute intervals.");
 
                     return;
 
@@ -1111,7 +1953,7 @@
                     endMinutes > 1080
                 ) {
 
-                    showWarning("Class time must be between 7:00 AM and 6:00 PM.");
+                    alert("Class time must be between 7:00 AM and 6:00 PM.");
 
                     return;
 
@@ -1135,12 +1977,7 @@
 
                     if (conflict) {
 
-                        Swal.fire({
-                            icon: "error",
-                            title: "Schedule Conflict!",
-                            text: "You already have a class on " + day + " at that time.",
-                            confirmButtonColor: "#315bea"
-                        });
+                        alert("Schedule conflict detected on " + day + "!");
 
                         return;
 
@@ -1169,6 +2006,7 @@
 
 
                 subjects.push(subjectData);
+                persistSubjects();
 
 
                 // UPDATE SCHEDULE
@@ -1196,66 +2034,16 @@
                 this.reset();
 
 
-                // SUCCESS ALERT
+                // SMOOTH SCROLL
 
-                Swal.fire({
-                    icon: "success",
-                    title: "Schedule Created!",
-                    text: code + " has been added to your schedule.",
-                    confirmButtonColor: "#315bea",
-                    timer: 2000,
-                    timerProgressBar: true
-                }).then(() => {
+                document.getElementById("scheduleSection")
+                    .scrollIntoView({
 
-                    // SMOOTH SCROLL
+                        behavior: "smooth",
 
-                    document.getElementById("scheduleSection")
-                        .scrollIntoView({
+                        block: "start"
 
-                            behavior: "smooth",
-
-                            block: "start"
-
-                        });
-
-                });
-
-            });
-
-
-        // CLEAR FORM
-
-        document.getElementById("clearBtn")
-            .addEventListener("click", function (e) {
-
-                // Stop the default reset so we can ask first
-                e.preventDefault();
-
-                Swal.fire({
-                    icon: "question",
-                    title: "Clear Form?",
-                    text: "All the information you typed in the form will be removed.",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes, clear it",
-                    cancelButtonText: "Cancel",
-                    confirmButtonColor: "#dc3545",
-                    cancelButtonColor: "#6c757d"
-                }).then(result => {
-
-                    if (result.isConfirmed) {
-
-                        document.getElementById("subjectForm").reset();
-
-                        Swal.fire({
-                            icon: "success",
-                            title: "Form Cleared!",
-                            timer: 1300,
-                            showConfirmButton: false
-                        });
-
-                    }
-
-                });
+                    });
 
             });
 
@@ -1581,48 +2369,28 @@
 
         function deleteSubject(id) {
 
-            Swal.fire({
-                icon: "warning",
-                title: "Delete Subject?",
-                text: "Are you sure you want to delete this subject?",
-                showCancelButton: true,
-                confirmButtonText: "Yes, delete it",
-                cancelButtonText: "Cancel",
-                confirmButtonColor: "#dc3545",
-                cancelButtonColor: "#6c757d"
-            }).then(result => {
+            if (!confirm("Are you sure you want to delete this subject?")) {
 
-                if (!result.isConfirmed) {
+                return;
 
-                    return;
-
-                }
+            }
 
 
-                subjects = subjects.filter(subject => subject.id !== id);
+            subjects = subjects.filter(subject => subject.id !== id);
+            persistSubjects();
 
 
-                renderSchedule();
+            renderSchedule();
 
-                renderSubjectList();
-
-
-                if (subjects.length === 0) {
-
-                    document.getElementById("scheduleSection")
-                        .style.display = "none";
-
-                }
+            renderSubjectList();
 
 
-                Swal.fire({
-                    icon: "success",
-                    title: "Deleted!",
-                    timer: 1200,
-                    showConfirmButton: false
-                });
+            if (subjects.length === 0) {
 
-            });
+                document.getElementById("scheduleSection")
+                    .style.display = "none";
+
+            }
 
         }
 
@@ -1633,7 +2401,7 @@
 
             if (subjects.length === 0) {
 
-                showWarning("Please create a schedule first.");
+                alert("Please create a schedule first.");
 
                 return;
 
