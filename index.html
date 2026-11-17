@@ -839,791 +839,6 @@
                             </label>
 
                             <label>
-                      
-            text-align: center;
-            vertical-align: middle;
-            font-size: 15px;
-            letter-spacing: 2px;
-            border: 1px solid #c77b7b !important;
-            print-color-adjust: exact;
-            -webkit-print-color-adjust: exact;
-        }
-
-        .church-cell .church-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
-        }
-
-        .church-cell small {
-            font-family: Arial, sans-serif;
-            font-size: 10px;
-            letter-spacing: 1px;
-        }
-
-        /* SUBJECT LIST */
-
-        .subject-list table {
-            min-width: 650px;
-        }
-
-        .subject-list th,
-        .subject-list td {
-            padding: 12px;
-        }
-
-        .subject-list td {
-            font-size: 12px;
-        }
-
-        /* ANIMATIONS */
-
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(25px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes cellAppear {
-            from {
-                opacity: 0;
-                transform: scale(.92);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(25px);
-            }
-        }
-
-        /* LOGGED-IN USER BAR */
-
-        body.auth-pending {
-            visibility: hidden;
-        }
-
-        .user-bar {
-            display: none;
-            align-items: center;
-            gap: 10px;
-            margin-top: 18px;
-            font-size: 13px;
-        }
-
-        .user-bar.show {
-            display: flex;
-        }
-
-        .user-bar button {
-            padding: 8px 14px;
-            background: rgba(255, 255, 255, .2);
-            color: white;
-        }
-
-        /* LOCKED STUDENT FIELDS */
-
-        .field input.locked {
-            background: #eef0f6;
-            color: #56627f;
-            border-color: #dde1ec;
-            cursor: not-allowed;
-            pointer-events: none;
-            user-select: none;
-        }
-
-        /* RESPONSIVE */
-
-        @media (max-width: 768px) {
-
-            header h1 {
-                font-size: 23px;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .full {
-                grid-column: auto;
-            }
-
-            .student-info {
-                grid-template-columns: 1fr;
-            }
-
-            .panel {
-                padding: 19px;
-            }
-
-        }
-
-        /* PRINT */
-
-        @media print {
-
-            @page {
-                size: A4 landscape;
-                margin: 8mm;
-            }
-
-            body {
-                background: white;
-                color: black;
-            }
-
-            header,
-            #formSection,
-            .subject-list,
-            .user-bar,
-            .no-print {
-                display: none !important;
-            }
-
-            .container {
-                max-width: none;
-                margin: 0;
-                padding: 0;
-            }
-
-            #scheduleSection {
-                display: block !important;
-                animation: none;
-            }
-
-            .panel {
-                box-shadow: none;
-                padding: 0;
-                margin: 0;
-                border-radius: 0;
-                animation: none;
-            }
-
-            .schedule-top {
-                justify-content: center;
-                margin-bottom: 6px;
-            }
-
-            .schedule-top h2 {
-                color: black;
-                font-size: 18px;
-            }
-
-            .schedule-top p {
-                color: black;
-                margin-top: 2px;
-            }
-
-            .student-info {
-                background: #f0f0f0 !important;
-                border: 1px solid black;
-                grid-template-columns: 1fr 1fr !important;
-                gap: 10px;
-                padding: 6px 10px !important;
-                margin-bottom: 6px !important;
-                print-color-adjust: exact;
-                -webkit-print-color-adjust: exact;
-            }
-
-            .info-icon {
-                width: 30px;
-                height: 30px;
-                font-size: 15px;
-            }
-
-            .table-wrapper {
-                overflow: visible;
-            }
-
-            table {
-                width: 100%;
-                min-width: 0;
-                page-break-inside: auto;
-            }
-
-            tr {
-                page-break-inside: avoid;
-            }
-
-            th,
-            td {
-                border: 1px solid black;
-                print-color-adjust: exact;
-                -webkit-print-color-adjust: exact;
-            }
-
-            th {
-                background: #ddd !important;
-                height: 24px;
-            }
-
-            .time-cell {
-                height: 24px;
-                font-size: 10px;
-            }
-
-            .empty-cell {
-                height: 24px;
-            }
-
-            .subject-cell {
-                padding: 2px;
-                overflow: visible;
-                animation: none;
-            }
-
-            .subject-card {
-                font-size: 10px;
-                line-height: 1.15;
-                color: #000;
-            }
-
-            .subject-card strong {
-                font-size: 11px;
-                margin-bottom: 1px;
-            }
-
-            .subject-card small {
-                font-size: 9.5px;
-                line-height: 1.15;
-                margin-top: 1px;
-                color: #000;
-            }
-
-            .church-cell {
-                background: #ffcaca !important;
-                color: #8b0000 !important;
-                print-color-adjust: exact;
-                -webkit-print-color-adjust: exact;
-            }
-        }
-    </style>
-</head>
-
-<body class="auth-pending">
-
-    <header>
-        <div class="header-content">
-
-            <div class="logo">
-                <div class="logo-icon">📅</div>
-
-                <div>
-                    <h1>Class Schedule Maker</h1>
-                    <p>Organize your academic life with ease.</p>
-                </div>
-            </div>
-
-            <div class="user-bar" id="userBar">
-                <span>👤 Logged in as <strong id="userBarName"></strong></span>
-                <small id="syncStatus" style="opacity:.85;"></small>
-                <button type="button" onclick="logout()">Log out</button>
-            </div>
-
-        </div>
-    </header>
-
-
-    <div class="container">
-
-        <!-- STUDENT INFORMATION -->
-
-        <section class="panel" id="formSection">
-
-            <div class="section-heading">
-                <h2>✦ Student Information</h2>
-                <span>STEP 01</span>
-            </div>
-
-            <div class="form-grid">
-
-                <div class="field">
-                    <label>Full Name</label>
-                    <input type="text" id="studentName" placeholder="Enter your full name">
-                </div>
-
-                <div class="field">
-                    <label>Course & Year Level</label>
-                    <input type="text" id="studentCourse" placeholder="e.g. BSIT - 3rd Year">
-                </div>
-
-            </div>
-
-            <hr style="border:0;border-top:1px solid #edf0f5;margin:25px 0;">
-
-            <!-- SUBJECT FORM -->
-
-            <div class="section-heading">
-                <h2>✦ Create New Subject</h2>
-                <span>STEP 02</span>
-            </div>
-
-            <form id="subjectForm">
-
-                <div class="form-grid">
-
-                    <div class="field">
-                        <label>Subject Code</label>
-                        <input type="text" id="code" placeholder="e.g. CBIT 211" required>
-                    </div>
-
-                    <div class="field">
-                        <label>Subject Name</label>
-                        <input type="text" id="subject" placeholder="e.g. Data Structures and Algorithm" required>
-                    </div>
-
-                    <div class="field">
-                        <label>Professor Name</label>
-                        <input type="text" id="professor" placeholder="e.g. Juan Dela Cruz" required>
-                    </div>
-
-                    <div class="field">
-                        <label>Room / Classroom</label>
-                        <input type="text" id="room" placeholder="e.g. IT Laboratory">
-                    </div>
-
-                    <div class="field">
-                        <label>Start Time</label>
-                        <input type="time" id="startTime" value="07:00" required>
-                    </div>
-
-                    <div class="field">
-                        <label>End Time</label>
-                        <input type="time" id="endTime" value="08:00" required>
-                    </div>
-
-                    <div class="field full">
-
-                        <label>Select Class Days</label>
-
-                        <div class="days">
-
-                            <label>
-                                <input type="checkbox" name="day" value="Sun">
-                                Sun
-                            </label>
-
-                            <label>
-                                <input type="checkbox" name="day" value="Mon">
-                                Mon
-                            </label>
-
-                            <label>
-                                <input type="checkbox" name="day" value="Tue">
-                                Tue
-                            </label>
-
-                            <label>
-                      color-adjust: exact;
-        }
-
-        .church-cell .church-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
-        }
-
-        .church-cell small {
-            font-family: Arial, sans-serif;
-            font-size: 10px;
-            letter-spacing: 1px;
-        }
-
-        /* SUBJECT LIST */
-
-        .subject-list table {
-            min-width: 650px;
-        }
-
-        .subject-list th,
-        .subject-list td {
-            padding: 12px;
-        }
-
-        .subject-list td {
-            font-size: 12px;
-        }
-
-        /* ANIMATIONS */
-
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(25px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes cellAppear {
-            from {
-                opacity: 0;
-                transform: scale(.92);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(25px);
-            }
-        }
-
-        /* LOGGED-IN USER BAR */
-
-        body.auth-pending {
-            visibility: hidden;
-        }
-
-        .user-bar {
-            display: none;
-            align-items: center;
-            gap: 10px;
-            margin-top: 18px;
-            font-size: 13px;
-        }
-
-        .user-bar.show {
-            display: flex;
-        }
-
-        .user-bar button {
-            padding: 8px 14px;
-            background: rgba(255, 255, 255, .2);
-            color: white;
-        }
-
-        /* LOCKED STUDENT FIELDS */
-
-        .field input.locked {
-            background: #eef0f6;
-            color: #56627f;
-            border-color: #dde1ec;
-            cursor: not-allowed;
-            pointer-events: none;
-            user-select: none;
-        }
-
-        /* RESPONSIVE */
-
-        @media (max-width: 768px) {
-
-            header h1 {
-                font-size: 23px;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .full {
-                grid-column: auto;
-            }
-
-            .student-info {
-                grid-template-columns: 1fr;
-            }
-
-            .panel {
-                padding: 19px;
-            }
-
-        }
-
-        /* PRINT */
-
-        @media print {
-
-            @page {
-                size: A4 landscape;
-                margin: 8mm;
-            }
-
-            body {
-                background: white;
-                color: black;
-            }
-
-            header,
-            #formSection,
-            .subject-list,
-            .user-bar,
-            .no-print {
-                display: none !important;
-            }
-
-            .container {
-                max-width: none;
-                margin: 0;
-                padding: 0;
-            }
-
-            #scheduleSection {
-                display: block !important;
-                animation: none;
-            }
-
-            .panel {
-                box-shadow: none;
-                padding: 0;
-                margin: 0;
-                border-radius: 0;
-                animation: none;
-            }
-
-            .schedule-top {
-                justify-content: center;
-                margin-bottom: 6px;
-            }
-
-            .schedule-top h2 {
-                color: black;
-                font-size: 18px;
-            }
-
-            .schedule-top p {
-                color: black;
-                margin-top: 2px;
-            }
-
-            .student-info {
-                background: #f0f0f0 !important;
-                border: 1px solid black;
-                grid-template-columns: 1fr 1fr !important;
-                gap: 10px;
-                padding: 6px 10px !important;
-                margin-bottom: 6px !important;
-                print-color-adjust: exact;
-                -webkit-print-color-adjust: exact;
-            }
-
-            .info-icon {
-                width: 30px;
-                height: 30px;
-                font-size: 15px;
-            }
-
-            .table-wrapper {
-                overflow: visible;
-            }
-
-            table {
-                width: 100%;
-                min-width: 0;
-                page-break-inside: auto;
-            }
-
-            tr {
-                page-break-inside: avoid;
-            }
-
-            th,
-            td {
-                border: 1px solid black;
-                print-color-adjust: exact;
-                -webkit-print-color-adjust: exact;
-            }
-
-            th {
-                background: #ddd !important;
-                height: 24px;
-            }
-
-            .time-cell {
-                height: 24px;
-                font-size: 10px;
-            }
-
-            .empty-cell {
-                height: 24px;
-            }
-
-            .subject-cell {
-                padding: 2px;
-                overflow: visible;
-                animation: none;
-            }
-
-            .subject-card {
-                font-size: 10px;
-                line-height: 1.15;
-                color: #000;
-            }
-
-            .subject-card strong {
-                font-size: 11px;
-                margin-bottom: 1px;
-            }
-
-            .subject-card small {
-                font-size: 9.5px;
-                line-height: 1.15;
-                margin-top: 1px;
-                color: #000;
-            }
-
-            .church-cell {
-                background: #ffcaca !important;
-                color: #8b0000 !important;
-                print-color-adjust: exact;
-                -webkit-print-color-adjust: exact;
-            }
-        }
-    </style>
-</head>
-
-<body class="auth-pending">
-
-    <header>
-        <div class="header-content">
-
-            <div class="logo">
-                <div class="logo-icon">📅</div>
-
-                <div>
-                    <h1>Class Schedule Maker</h1>
-                    <p>Organize your academic life with ease.</p>
-                </div>
-            </div>
-
-            <div class="user-bar" id="userBar">
-                <span>👤 Logged in as <strong id="userBarName"></strong></span>
-                <small id="syncStatus" style="opacity:.85;"></small>
-                <button type="button" onclick="logout()">Log out</button>
-            </div>
-
-        </div>
-    </header>
-
-
-    <div class="container">
-
-        <!-- STUDENT INFORMATION -->
-
-        <section class="panel" id="formSection">
-
-            <div class="section-heading">
-                <h2>✦ Student Information</h2>
-                <span>STEP 01</span>
-            </div>
-
-            <div class="form-grid">
-
-                <div class="field">
-                    <label>Full Name</label>
-                    <input type="text" id="studentName" placeholder="Enter your full name">
-                </div>
-
-                <div class="field">
-                    <label>Course & Year Level</label>
-                    <input type="text" id="studentCourse" placeholder="e.g. BSIT - 3rd Year">
-                </div>
-
-            </div>
-
-            <hr style="border:0;border-top:1px solid #edf0f5;margin:25px 0;">
-
-            <!-- SUBJECT FORM -->
-
-            <div class="section-heading">
-                <h2>✦ Create New Subject</h2>
-                <span>STEP 02</span>
-            </div>
-
-            <form id="subjectForm">
-
-                <div class="form-grid">
-
-                    <div class="field">
-                        <label>Subject Code</label>
-                        <input type="text" id="code" placeholder="e.g. CBIT 211" required>
-                    </div>
-
-                    <div class="field">
-                        <label>Subject Name</label>
-                        <input type="text" id="subject" placeholder="e.g. Data Structures and Algorithm" required>
-                    </div>
-
-                    <div class="field">
-                        <label>Professor Name</label>
-                        <input type="text" id="professor" placeholder="e.g. Juan Dela Cruz" required>
-                    </div>
-
-                    <div class="field">
-                        <label>Room / Classroom</label>
-                        <input type="text" id="room" placeholder="e.g. IT Laboratory">
-                    </div>
-
-                    <div class="field">
-                        <label>Start Time</label>
-                        <input type="time" id="startTime" value="07:00" required>
-                    </div>
-
-                    <div class="field">
-                        <label>End Time</label>
-                        <input type="time" id="endTime" value="08:00" required>
-                    </div>
-
-                    <div class="field full">
-
-                        <label>Select Class Days</label>
-
-                        <div class="days">
-
-                            <label>
-                                <input type="checkbox" name="day" value="Sun">
-                                Sun
-                            </label>
-
-                            <label>
-                                <input type="checkbox" name="day" value="Mon">
-                                Mon
-                            </label>
-
-                            <label>
-                                <input type="checkbox" name="day" value="Tue">
-                                Tue
-                            </label>
-
-                            <label>
                                 <input type="checkbox" name="day" value="Wed">
                                 Wed
                             </label>
@@ -2199,12 +1414,21 @@
 
                 const action = document.createElement("td");
 
+                const wrapper = document.createElement("div");
+                wrapper.className = "action-buttons";
+
+                const editButton = document.createElement("button");
+                editButton.textContent = "Edit";
+                editButton.className = "edit-btn";
+                editButton.onclick = () => editSubject(subject.id);
+
                 const button = document.createElement("button");
                 button.textContent = "Delete";
                 button.className = "delete-btn";
                 button.onclick = () => deleteSubject(subject.id);
 
-                action.appendChild(button);
+                wrapper.append(editButton, button);
+                action.appendChild(wrapper);
                 tr.appendChild(action);
 
                 tbody.appendChild(tr);
@@ -2239,6 +1463,126 @@
             }
 
             toast("Subject deleted");
+        }
+
+
+        // EDIT SUBJECT
+
+        function escapeHTML(value) {
+            return String(value ?? "").replace(/[&<>"']/g, char => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+            })[char]);
+        }
+
+        async function editSubject(id) {
+
+            const target = subjects.find(subject => subject.id === id);
+
+            if (!target) return;
+
+            const dayBoxes = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri"].map(day => `
+                <label style="display:inline-flex;align-items:center;gap:5px;margin:3px 10px 3px 0;font-size:13px;">
+                    <input type="checkbox" class="edit-day" value="${day}" ${target.days.includes(day) ? "checked" : ""}>
+                    ${day}
+                </label>`).join("");
+
+            const field = (fieldId, label, value, type = "text") => `
+                <label style="display:block;text-align:left;font-size:12px;font-weight:700;margin:12px 0 4px;">${label}</label>
+                <input id="${fieldId}" type="${type}" value="${escapeHTML(value)}"
+                    class="swal2-input" style="margin:0;width:100%;font-size:13px;">`;
+
+            const result = await Swal.fire({
+                title: "Edit subject",
+                html: `
+                    <div style="text-align:left;">
+                        ${field("editCode", "Subject Code", target.code)}
+                        ${field("editName", "Subject Name", target.name)}
+                        ${field("editProfessor", "Professor Name", target.professor)}
+                        ${field("editRoom", "Room / Classroom", target.room)}
+                        ${field("editStart", "Start Time", target.start, "time")}
+                        ${field("editEnd", "End Time", target.end, "time")}
+                        <label style="display:block;font-size:12px;font-weight:700;margin:12px 0 4px;">Class Days</label>
+                        ${dayBoxes}
+                    </div>`,
+                showCancelButton: true,
+                confirmButtonText: "Save changes",
+                focusConfirm: false,
+                preConfirm: () => {
+
+                    const data = {
+                        code: document.getElementById("editCode").value.trim(),
+                        name: document.getElementById("editName").value.trim(),
+                        professor: document.getElementById("editProfessor").value.trim(),
+                        room: document.getElementById("editRoom").value.trim(),
+                        start: document.getElementById("editStart").value,
+                        end: document.getElementById("editEnd").value,
+                        days: Array.from(document.querySelectorAll(".edit-day:checked")).map(box => box.value)
+                    };
+
+                    if (!data.code || !data.name || !data.professor) {
+                        Swal.showValidationMessage("Code, subject name and professor are required.");
+                        return false;
+                    }
+
+                    if (!data.start || !data.end) {
+                        Swal.showValidationMessage("Please set the start and end time.");
+                        return false;
+                    }
+
+                    if (data.days.length === 0) {
+                        Swal.showValidationMessage("Please select at least one class day.");
+                        return false;
+                    }
+
+                    const startMinutes = timeToMinutes(data.start);
+                    const endMinutes = timeToMinutes(data.end);
+
+                    if (startMinutes >= endMinutes) {
+                        Swal.showValidationMessage("End time must be later than start time.");
+                        return false;
+                    }
+
+                    if (startMinutes % 30 !== 0 || endMinutes % 30 !== 0) {
+                        Swal.showValidationMessage("Please use 30-minute intervals.");
+                        return false;
+                    }
+
+                    if (startMinutes < 420 || endMinutes > 1080) {
+                        Swal.showValidationMessage("Class time must be between 7:00 AM and 6:00 PM.");
+                        return false;
+                    }
+
+                    // CONFLICT CHECK (ignore the subject being edited)
+                    for (const day of data.days) {
+
+                        const conflict = subjects.some(existing =>
+                            existing.id !== id &&
+                            existing.days.includes(day) &&
+                            startMinutes < timeToMinutes(existing.end) &&
+                            endMinutes > timeToMinutes(existing.start)
+                        );
+
+                        if (conflict) {
+                            Swal.showValidationMessage("Schedule conflict detected on " + day + "!");
+                            return false;
+                        }
+                    }
+
+                    return data;
+                }
+            });
+
+            if (!result.isConfirmed) {
+                return;
+            }
+
+            Object.assign(target, result.value);
+            persistSubjects();
+
+            renderSchedule();
+            renderSubjectList();
+
+            toast("Subject updated");
         }
 
 
