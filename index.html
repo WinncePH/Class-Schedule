@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Website Tab Logo / Favicon -->
-<link rel="icon" type="image/png" href="images/logo.jpg">
-
-<!-- Browser and Mobile Icon -->
-<link rel="apple-touch-icon" href="images/logo.jpg">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Website Tab Logo / Favicon -->
+    <link rel="icon" type="image/png" href="images/logo.jpg">
+
+    <!-- Browser and Mobile Icon -->
+    <link rel="apple-touch-icon" href="images/logo.jpg">
 
     <title>Class Schedule Maker</title>
 
@@ -134,6 +134,7 @@
             align-items: center;
             margin-bottom: 20px;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
         .section-heading h2 {
@@ -143,6 +144,13 @@
         .section-heading span {
             font-size: 12px;
             color: #8992a9;
+        }
+
+        .heading-tools {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
         /* FORM */
@@ -502,7 +510,6 @@
             }
         }
 
-
         /* LOGGED-IN USER BAR */
 
         body.auth-pending {
@@ -538,16 +545,9 @@
             user-select: none;
         }
 
-        @media print {
-
-            .user-bar {
-                display: none !important;
-            }
-        }
-
         /* RESPONSIVE */
 
-        @media(max-width: 768px) {
+        @media (max-width: 768px) {
 
             header h1 {
                 font-size: 23px;
@@ -588,6 +588,7 @@
             header,
             #formSection,
             .subject-list,
+            .user-bar,
             .no-print {
                 display: none !important;
             }
@@ -608,29 +609,39 @@
                 padding: 0;
                 margin: 0;
                 border-radius: 0;
+                animation: none;
             }
 
             .schedule-top {
                 justify-content: center;
-                margin-bottom: 10px;
+                margin-bottom: 6px;
             }
 
             .schedule-top h2 {
                 color: black;
-                font-size: 20px;
+                font-size: 18px;
             }
 
             .schedule-top p {
                 color: black;
+                margin-top: 2px;
             }
 
             .student-info {
                 background: #f0f0f0 !important;
                 border: 1px solid black;
-                padding: 10px;
-                margin-bottom: 12px;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 10px;
+                padding: 6px 10px !important;
+                margin-bottom: 6px !important;
                 print-color-adjust: exact;
                 -webkit-print-color-adjust: exact;
+            }
+
+            .info-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 15px;
             }
 
             .table-wrapper {
@@ -640,6 +651,10 @@
             table {
                 width: 100%;
                 min-width: 0;
+                page-break-inside: auto;
+            }
+
+            tr {
                 page-break-inside: avoid;
             }
 
@@ -652,53 +667,40 @@
 
             th {
                 background: #ddd !important;
-            }
-
-            .subject-card {
-                font-size: 11px;
-                line-height: 1.2;
-                color: #000;
-            }
-
-            .subject-card strong {
-                font-size: 12px;
-                margin-bottom: 1px;
-            }
-
-            .subject-card small {
-                font-size: 10.5px;
-                line-height: 1.2;
-                margin-top: 1px;
-                color: #000;
+                height: 24px;
             }
 
             .time-cell {
-                height: 26px;
+                height: 24px;
                 font-size: 10px;
             }
 
             .empty-cell {
-                height: 26px;
+                height: 24px;
             }
 
             .subject-cell {
                 padding: 2px;
                 overflow: visible;
-            }
-
-            .student-info {
-                padding: 6px 10px !important;
-                margin-bottom: 6px !important;
-            }
-
-            .info-icon {
-                width: 30px;
-                height: 30px;
-                font-size: 15px;
-            }
-
-            .subject-cell {
                 animation: none;
+            }
+
+            .subject-card {
+                font-size: 10px;
+                line-height: 1.15;
+                color: #000;
+            }
+
+            .subject-card strong {
+                font-size: 11px;
+                margin-bottom: 1px;
+            }
+
+            .subject-card small {
+                font-size: 9.5px;
+                line-height: 1.15;
+                margin-top: 1px;
+                color: #000;
             }
 
             .church-cell {
@@ -970,7 +972,14 @@
 
             <div class="section-heading">
                 <h2>My Subjects</h2>
-                <span>Manage your classes</span>
+
+                <div class="heading-tools">
+                    <span>Manage your classes</span>
+
+                    <button type="button" class="delete-btn" onclick="deleteAllSubjects()">
+                        🗑 Remove All Subjects
+                    </button>
+                </div>
             </div>
 
             <div class="table-wrapper">
@@ -1107,26 +1116,18 @@
         // TIME CONVERTER
 
         function timeToMinutes(time) {
-
             const [hours, minutes] = time.split(":").map(Number);
-
             return hours * 60 + minutes;
-
         }
 
 
         // FORMAT TIME
 
         function formatTime(time) {
-
             let [hour, minute] = time.split(":").map(Number);
-
             const period = hour >= 12 ? "PM" : "AM";
-
             const displayHour = hour % 12 || 12;
-
             return `${displayHour}:${String(minute).padStart(2, "0")} ${period}`;
-
         }
 
 
@@ -1137,133 +1138,69 @@
 
                 e.preventDefault();
 
-                const studentName =
-                    document.getElementById("studentName").value.trim();
-
-                const studentCourse =
-                    document.getElementById("studentCourse").value.trim();
-
+                const studentName = document.getElementById("studentName").value.trim();
+                const studentCourse = document.getElementById("studentCourse").value.trim();
 
                 // STUDENT INFORMATION VALIDATION
-
                 if (!studentName || !studentCourse) {
-
                     notify("Please enter your name and course/year level first.");
-
                     return;
-
                 }
 
-
-                const code =
-                    document.getElementById("code").value.trim();
-
-                const name =
-                    document.getElementById("subject").value.trim();
-
-                const professor =
-                    document.getElementById("professor").value.trim();
-
-                const room =
-                    document.getElementById("room").value.trim();
-
-                const start =
-                    document.getElementById("startTime").value;
-
-                const end =
-                    document.getElementById("endTime").value;
-
+                const code = document.getElementById("code").value.trim();
+                const name = document.getElementById("subject").value.trim();
+                const professor = document.getElementById("professor").value.trim();
+                const room = document.getElementById("room").value.trim();
+                const start = document.getElementById("startTime").value;
+                const end = document.getElementById("endTime").value;
 
                 const days = Array.from(
-
                     document.querySelectorAll('input[name="day"]:checked')
-
                 ).map(input => input.value);
 
-
                 // DAY VALIDATION
-
                 if (days.length === 0) {
-
                     notify("Please select at least one class day.", "warning", "No day selected");
-
                     return;
-
                 }
-
 
                 // TIME VALIDATION
-
                 const startMinutes = timeToMinutes(start);
-
                 const endMinutes = timeToMinutes(end);
 
-
                 if (startMinutes >= endMinutes) {
-
                     notify("End time must be later than start time.");
-
                     return;
-
                 }
 
-
-                if (
-                    startMinutes % 30 !== 0 ||
-                    endMinutes % 30 !== 0
-                ) {
-
+                if (startMinutes % 30 !== 0 || endMinutes % 30 !== 0) {
                     notify("Please use 30-minute intervals.");
-
                     return;
-
                 }
 
-
-                if (
-                    startMinutes < 420 ||
-                    endMinutes > 1080
-                ) {
-
+                if (startMinutes < 420 || endMinutes > 1080) {
                     notify("Class time must be between 7:00 AM and 6:00 PM.");
-
                     return;
-
                 }
-
 
                 // CHECK SCHEDULE CONFLICTS
-
                 for (let day of days) {
 
                     const conflict = subjects.some(existing => {
-
                         return existing.days.includes(day) &&
-
                             startMinutes < timeToMinutes(existing.end) &&
-
                             endMinutes > timeToMinutes(existing.start);
-
                     });
 
-
                     if (conflict) {
-
                         notify("Schedule conflict detected on " + day + "!", "error", "Schedule conflict");
-
                         return;
-
                     }
-
                 }
 
-
                 // ADD SUBJECT
-
                 const subjectData = {
-
                     id: Date.now() + Math.random(),
-
                     code,
                     name,
                     professor,
@@ -1271,52 +1208,32 @@
                     start,
                     end,
                     days,
-
                     color: colors[subjects.length % colors.length]
-
                 };
-
 
                 subjects.push(subjectData);
                 persistSubjects();
 
-
                 // UPDATE SCHEDULE
-
                 renderSchedule();
-
                 renderSubjectList();
 
-
-                document.getElementById("scheduleSection")
-                    .style.display = "block";
-
+                document.getElementById("scheduleSection").style.display = "block";
 
                 // UPDATE STUDENT INFORMATION
-
-                document.getElementById("displayName").textContent =
-                    studentName;
-
-                document.getElementById("displayCourse").textContent =
-                    studentCourse;
-
+                document.getElementById("displayName").textContent = studentName;
+                document.getElementById("displayCourse").textContent = studentCourse;
 
                 // CLEAR SUBJECT FORM
-
                 this.reset();
 
                 toast("Subject added to your schedule");
 
-
                 // SMOOTH SCROLL
-
                 document.getElementById("scheduleSection")
                     .scrollIntoView({
-
                         behavior: "smooth",
-
                         block: "start"
-
                     });
 
             });
@@ -1330,236 +1247,126 @@
 
             tbody.innerHTML = "";
 
-
             const startHour = 7;
-
             const endHour = 18;
 
-
             // 7:00 AM TO 6:00 PM
-
-            for (
-
-                let current = startHour * 60;
-
-                current < endHour * 60;
-
-                current += 30
-
-            ) {
+            for (let current = startHour * 60; current < endHour * 60; current += 30) {
 
                 const tr = document.createElement("tr");
 
-
                 // TIME COLUMN
-
                 const timeCell = document.createElement("td");
-
                 timeCell.className = "time-col time-cell";
 
-
                 let hour = Math.floor(current / 60);
-
                 let minute = current % 60;
-
                 let period = hour >= 12 ? "PM" : "AM";
-
                 let displayHour = hour % 12 || 12;
 
-
                 timeCell.textContent =
-
                     displayHour + ":" +
-
                     String(minute).padStart(2, "0") +
-
                     " " + period;
-
 
                 tr.appendChild(timeCell);
 
-
                 // DAYS
-
                 for (let day of dayOrder) {
 
-
                     // PERMANENT SATURDAY CHURCH
-
                     if (day === "Sat") {
 
                         if (current === startHour * 60) {
 
-                            const churchCell =
-                                document.createElement("td");
-
+                            const churchCell = document.createElement("td");
                             churchCell.rowSpan = 22;
-
                             churchCell.className = "church-cell";
 
-
-                            const content =
-                                document.createElement("div");
-
+                            const content = document.createElement("div");
                             content.className = "church-content";
 
-
-                            const title =
-                                document.createElement("strong");
-
+                            const title = document.createElement("strong");
                             title.textContent = "CHURCH";
 
-
-                            const time =
-                                document.createElement("small");
-
+                            const time = document.createElement("small");
                             time.textContent = "7:00 AM - 6:00 PM";
 
-
                             content.append(title, time);
-
                             churchCell.appendChild(content);
-
                             tr.appendChild(churchCell);
-
                         }
 
                         // Skip remaining Saturday rows
                         continue;
-
                     }
 
-
                     // OTHER DAYS
-
                     const currentSubject = subjects.find(subject => {
-
                         return subject.days.includes(day) &&
-
                             timeToMinutes(subject.start) === current;
-
                     });
-
 
                     if (currentSubject) {
 
-                        const duration =
-
-                            timeToMinutes(currentSubject.end) - current;
-
-
+                        const duration = timeToMinutes(currentSubject.end) - current;
                         const rowSpan = duration / 30;
 
-
                         const td = document.createElement("td");
-
                         td.rowSpan = rowSpan;
-
                         td.className = "subject-cell";
-
                         td.style.background = currentSubject.color;
 
-
                         const card = document.createElement("div");
-
                         card.className = "subject-card";
 
-
                         const strong = document.createElement("strong");
-
                         strong.textContent = currentSubject.code;
 
-
                         const name = document.createElement("div");
-
                         name.textContent = currentSubject.name;
 
-
                         const time = document.createElement("small");
-
                         time.textContent =
-
                             formatTime(currentSubject.start) +
-
                             " - " +
-
                             formatTime(currentSubject.end);
 
-
                         const professor = document.createElement("small");
-
-                        professor.textContent =
-
-                            "Prof. " + currentSubject.professor;
-
+                        professor.textContent = "Prof. " + currentSubject.professor;
 
                         const room = document.createElement("small");
-
                         room.textContent = currentSubject.room
-
                             ? "Room: " + currentSubject.room
-
                             : "";
 
-
-                        card.append(
-
-                            strong,
-
-                            name,
-
-                            time,
-
-                            professor,
-
-                            room
-
-                        );
-
+                        card.append(strong, name, time, professor, room);
 
                         td.appendChild(card);
-
                         tr.appendChild(td);
-
 
                     } else {
 
-
                         // CHECK IF ROW IS OCCUPIED BY ANOTHER SUBJECT
-
                         const occupied = subjects.some(subject => {
-
                             return subject.days.includes(day) &&
-
                                 timeToMinutes(subject.start) < current &&
-
                                 timeToMinutes(subject.end) > current;
-
                         });
 
-
                         if (occupied) {
-
                             continue;
-
                         }
 
-
                         const td = document.createElement("td");
-
                         td.className = "empty-cell";
-
                         tr.appendChild(td);
-
                     }
 
                 }
 
-
                 tbody.appendChild(tr);
-
             }
-
         }
 
 
@@ -1571,71 +1378,40 @@
 
             tbody.innerHTML = "";
 
-
             if (subjects.length === 0) {
-
-                tbody.innerHTML =
-
-                    '<tr><td colspan="5">No subjects added yet.</td></tr>';
-
+                tbody.innerHTML = '<tr><td colspan="5">No subjects added yet.</td></tr>';
                 return;
-
             }
-
 
             subjects.forEach(subject => {
 
                 const tr = document.createElement("tr");
 
-
                 const values = [
-
                     subject.code + " - " + subject.name,
-
                     subject.professor,
-
                     subject.days.join(", "),
-
-                    formatTime(subject.start) + " - " +
-
-                    formatTime(subject.end)
-
+                    formatTime(subject.start) + " - " + formatTime(subject.end)
                 ];
 
-
                 values.forEach(value => {
-
                     const td = document.createElement("td");
-
                     td.textContent = value;
-
                     tr.appendChild(td);
-
                 });
-
 
                 const action = document.createElement("td");
 
-
                 const button = document.createElement("button");
-
                 button.textContent = "Delete";
-
                 button.className = "delete-btn";
-
-
                 button.onclick = () => deleteSubject(subject.id);
 
-
                 action.appendChild(button);
-
                 tr.appendChild(action);
 
-
                 tbody.appendChild(tr);
-
             });
-
         }
 
 
@@ -1652,34 +1428,53 @@
             );
 
             if (!ok) {
-
                 return;
-
             }
-
 
             subjects = subjects.filter(subject => subject.id !== id);
             persistSubjects();
 
-
             renderSchedule();
-
             renderSubjectList();
 
-
             if (subjects.length === 0) {
-
-                document.getElementById("scheduleSection")
-                    .style.display = "none";
-
+                document.getElementById("scheduleSection").style.display = "none";
             }
 
             toast("Subject deleted");
-
         }
 
 
-        // PRINT SCHEDULE
+        // DELETE ALL SUBJECTS
+
+        async function deleteAllSubjects() {
+
+            if (subjects.length === 0) {
+                notify("There are no subjects to remove.", "info", "Nothing to remove");
+                return;
+            }
+
+            const ok = await confirmDialog(
+                "Remove all subjects?",
+                "All " + subjects.length + " subject(s) will be removed from your schedule. This cannot be undone.",
+                "Yes, remove all"
+            );
+
+            if (!ok) {
+                return;
+            }
+
+            subjects = [];
+            persistSubjects();
+
+            renderSchedule();
+            renderSubjectList();
+
+            document.getElementById("scheduleSection").style.display = "none";
+
+            toast("All subjects removed");
+        }
+
 
         // ===== DOWNLOAD SCHEDULE AS WALLPAPER IMAGE =====
 
@@ -1798,7 +1593,7 @@
             ctx.fillText(wrap(studentName, W - margin * 2 - (phone ? 0 : 500), 1)[0], margin, headerTop + 46);
 
             ctx.fillStyle = theme.sub;
-            ctx.font = "600 " + (phone ? 28 : 28) + "px " + FONT;
+            ctx.font = "600 28px " + FONT;
             ctx.fillText(studentCourse, margin, headerTop + 92);
 
             if (!phone) {
@@ -1821,7 +1616,7 @@
                 ctx.fill();
 
                 ctx.fillStyle = theme.headText;
-                ctx.font = "800 " + (phone ? 26 : 26) + "px " + FONT;
+                ctx.font = "800 26px " + FONT;
                 ctx.textAlign = "center";
                 ctx.textBaseline = "middle";
                 ctx.fillText(day.toUpperCase(), x + colW / 2, headY + (dayHeadH - 8) / 2 + 1);
@@ -1968,20 +1763,18 @@
             }, "image/png");
         }
 
+
+        // PRINT SCHEDULE
+
         function printSchedule() {
 
             if (subjects.length === 0) {
-
                 notify("Please create a schedule first.", "info", "No schedule yet");
-
                 return;
-
             }
 
             window.print();
-
         }
-
     </script>
 
 </body>
