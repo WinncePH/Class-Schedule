@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Class Schedule Maker</title>
+    <link rel="icon" type="image/png" href="images/logo.jpg">
+    <link rel="apple-touch-icon" href="images/logo.jpg">
+    <link rel="stylesheet" href="auth.css">
+</head>
+
+<body>
+
+    <div class="auth-card">
+        <div class="auth-logo">🛡️</div>
+        <h2>Admin Login</h2>
+        <p class="auth-sub">Login to manage all accounts and subjects.</p>
+
+        <div class="field">
+            <label for="adminUsername">Username</label>
+            <input type="text" id="adminUsername" placeholder="Enter your admin username" autofocus
+                autocomplete="username">
+        </div>
+
+        <div class="field">
+            <label for="adminPassword">Password</label>
+            <input type="password" id="adminPassword" placeholder="Enter your password"
+                autocomplete="current-password" onkeydown="if(event.key==='Enter') adminLogin()">
+        </div>
+
+        <button type="button" class="create-btn" id="loginBtn" onclick="adminLogin()">Login</button>
+
+        <p class="auth-switch">No admin account yet? <a href="admin-register.html">Register</a></p>
+        <p class="auth-switch"><a href="login.html">← Student login</a></p>
+
+        <p class="copyright">© 2026 Winnce Tubtub. All rights reserved.</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        const ADMIN_SESSION_KEY = "csm_admin_user";
+
+        async function adminLogin() {
+            const username = document.getElementById("adminUsername").value.trim();
+            const password = document.getElementById("adminPassword").value;
+
+            if (!username || !password) {
+                notify("Please enter your username and password.", "warning");
+                return;
+            }
+
+            if (!USE_SUPABASE) {
+                notify("Supabase is not configured in auth.js.", "error");
+                return;
+            }
+
+            const btn = document.getElementById("loginBtn");
+            btn.disabled = true;
+
+            try {
+                const ok = await sb("rpc/admin_login", {
+                    method: "POST",
+                    body: { p_username: username, p_password: password }
+                });
+
+                if (ok !== true) {
+                    document.getElementById("adminPassword").value = "";
+                    notify("Wrong username or password.", "error", "Access denied");
+                    return;
+                }
+
+                sessionStorage.setItem(ADMIN_SESSION_KEY, username);
+
+                await Swal.fire({
+                    icon: "success",
+                    title: "Welcome, admin!",
+                    text: username,
+                    timer: 1200,
+                    showConfirmButton: false,
+                    timerProgressBar: true
+                });
+
+                window.location.href = "admin.html";
+
+            } catch (error) {
+                console.error(error);
+
+                if (error.status === 404) {
+                    notify("The admin login function was not found. Run admin-setup.sql in the Supabase SQL Editor first.", "error");
+                } else {
+                    notify("Could not login. Please check your connection and Supabase settings.", "error");
+                }
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        // already logged in? go straight to the admin panel
+        document.addEventListener("DOMContentLoaded", function () {
+            if (sessionStorage.getItem(ADMIN_SESSION_KEY)) {
+                window.location.href = "admin.html";
+            }
+        });
+    </script>
+
+</body>
+
+</html>
